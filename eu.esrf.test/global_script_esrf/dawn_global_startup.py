@@ -1,4 +1,4 @@
-DAWN_WORKSPACE_ROOT="/scisoft/jenkins/ub1004_opid14/workspace"
+DAWN_WORKSPACE_ROOT="/scisoft/jenkins/ub1204_opid14/workspace"
 DAWN_SUITE_WORKSPACE="suite_test_single_workspace"
 USE_ATTACH=False
 
