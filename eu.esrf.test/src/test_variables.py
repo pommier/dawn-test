@@ -2,9 +2,9 @@
 import os,shutil 
 
 #only one queue allowed for one suite_test_case 
-queue = {'suite_workflows_general': {'tst_case2':'tst_open_examples'}} 
+#queue = {'suite_workflows_general': {'tst_case2':'tst_open_examples'}} 
 #queue.update({'suite_usecases_general':{'tst_case':'tst_hdf5_large_tree'}}) 
-queue.update({'suite_workflows_bignexus':{'tst_case':'tst_slicedata_dbrowsing'}}) 
+queue({'suite_workflows_bignexus':{'tst_case':'tst_slicedata_dbrowsing'}}) 
 #queue['suite_workflows_bignexus'] = {'tst_case':'tst_slicedata_dexplore'} 
        
 def check_variable(testSuiteName): 
