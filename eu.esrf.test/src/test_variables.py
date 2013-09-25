@@ -11,7 +11,8 @@ def check_variable(testSuiteName):
     path_global_script=os.path.join(os.environ['WORKSPACE'],'org.dawnsci.squishtests',testSuiteName,'shared/scripts') 
     if os.path.exists(path_global_script)== True: 
         shutil.rmtree(path_global_script)          
-    shutil.copytree('/scisoft/jenkins/ub1204_opid14/workspace/Dawn_squish_tests/eu.esrf.test/global_script_esrf',path_global_script) 
+    #shutil.copytree('/scisoft/jenkins/ub1204_opid14/workspace/Dawn_squish_tests/eu.esrf.test/global_script_esrf',path_global_script) 
+    shutil.copytree(os.path.join(os.environ['WORKSPACE']  +'/eu.esrf.test/global_script_esrf') ,path_global_script) 
             
 def setup_log(): 
     path_log=os.path.join(os.environ['WORKSPACE']  +'/log/') 
@@ -24,7 +25,4 @@ for testSuiteName in queue.keys():
     check_variable(testSuiteName) 
     for tst in queue[testSuiteName]: 
         os.chdir(os.path.join(os.environ['WORKSPACE'],'eu.esrf.test/src')) 
-	print '***************************'
-	print (os.path.join(os.environ['WORKSPACE'],'eu.esrf.test/src')) 
-	print ("./script_jenkins "+testSuiteName+" "+queue[testSuiteName][tst])
-        os.popen("./script_jenkins "+testSuiteName+" "+queue[testSuiteName][tst], "r").read()
+        os.popen("./script_jenkins "+testSuiteName+" "+queue[testSuiteName][tst]+" "+os.environ['WORKSPACE'], "r").read()
