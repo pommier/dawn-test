@@ -1,6 +1,6 @@
 #!/usr/bin/python2.6 
 import os,shutil 
-queue = {'suite_workflows_general': {'tst_case':'tst_open_examples'}} 
+queue = {'suite_usecases_general':{'tst_case':'tst_hdf5_large_tree'}}
 #only one queue allowed for one suite_test_case 
 #queue = {'suite_workflows_general': {'tst_case2':'tst_open_examples'}} 
 #queue.update({'suite_usecases_general':{'tst_case':'tst_hdf5_large_tree'}}) 
