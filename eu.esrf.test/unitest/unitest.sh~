@@ -1,0 +1,37 @@
+ #! /usr/bin/env sh
+echo $WORKSPACE/eu.esrf.test/src/scriptFunction
+### unitTest.sh ###
+
+#source /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/scriptFunction
+source $WORKSPACE/eu.esrf.test/src/scriptFunction
+#test the function findDisplayNumber with a temp file belonged to the user
+function testWithTmp () {
+	mkdir 'tmpFile'
+	chmod -R 775 tmpFile
+	cd tmpFile
+	touch .X2-lock
+	cd ..
+	ssh opid29@ub1204 "touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X0-lock;touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X1-lock;touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X4-lock;"
+	val=$(findDisplayNumber tmpFile/)
+	rm -rf tmpFile
+	assertEquals '2' $val
+}
+
+#test the function findDisplayNumber with no temp file belonged to the user
+function testwithNoTmp () {
+	mkdir 'tmpFile'
+	chmod -R 775 tmpFile
+	cd tmpFile
+	cd ..
+	ssh opid29@ub1204 "touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X0-lock;touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X1-lock;touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X2-lock;touch /scisoft/jenkins/ub1204_opid23_test/dawn-test/eu.esrf.test/src/Tests/tmpFile/.X4-lock"
+	val1=$(findDisplayNumber tmpFile/)
+	rm -rf tmpFile
+	assertEquals '3' $val1
+}
+
+
+
+. "$WORKSPACE/eu.esrf.test/src/shunit2-2.1.6/src/shunit2"
+
+
+

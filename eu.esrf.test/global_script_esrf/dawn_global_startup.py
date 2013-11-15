@@ -1,6 +1,6 @@
 import os, shutil
 from datetime import datetime
-DAWN_WORKSPACE_ROOT=os.path.join(os.environ['WORKSPACE'],"dawn_workspace")
+DAWN_WORKSPACE_ROOT=os.path.join(os.environ['WORKSPACE'],"eu.esrf.test/dawn_workspace")
 DAWN_SUITE_WORKSPACE="suite_test_single_workspace"
 USE_ATTACH=False
 

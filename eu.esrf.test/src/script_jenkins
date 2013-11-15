@@ -1,41 +1,17 @@
 #!/usr/bin/env bash
-xvfbFound=false 
-i=0
-x=0
-for inode in $(ls  /tmp/.X*-lock)
-do
-	owner=$(ls -al $inode | grep -v grep |  awk '{ print $3; }')
-	echo $inode "belong to" $owner
-	array[$i]=$(echo "$inode" | tr -d [:alpha:] | tr -d [:punct:]) 
-	if [ "$USER" = "$owner" ];then
-		xvfbFound=true
-		var=$(echo "$inode" | tr -d [:alpha:] | tr -d [:punct:]) 	
- 		break;
-	fi
-	let i++
-done
-if $xvfbFound ; then
-	echo "availaible display @ "$var " for " $USER
-else
-	var1=${#array[@]}
-	for (( c=0; c<var1; c++ ))
-	do
-		if [ $x -ne ${array[$c]} ];then
-			echo "use Xvfb" $x "for a new display with" $USER
-			var=$x
-		break;
-		fi
-		let x++
-	done
-fi
 
-Xvfb :$var -screen 0 1024x768x16 &
+source scriptFunction
+var=$(findDisplayNumber /tmp/) #the argument is the path to yours temp files.
+
+
+Xvfb :$var -screen 0 1024x768x16 & #create a display 
 export DISPLAY=:$var
 export PATH=/sware/isdd/soft/java/v7u17/linux_x64/jdk1.7.0_40/bin:$PATH
 cd /$WORKSPACE/squish/bin/
 ./squishserver & >/$WORKSPACE/serverlog
 sleep 1
-/$WORKSPACE/squish/bin/squishrunner --testsuite $WORKSPACE/org.dawnsci.squishtests/$1/ --testcase $2/ --useWaitFor>>/$WORKSPACE/log/$1_squishlog 
+#run the test (with $1 corresponding at the testsuite and $2 corresponding at the testcase)
+/$WORKSPACE/squish/bin/squishrunner --testsuite $WORKSPACE/org.dawnsci.squishtests/$1/ --testcase $2/ --useWaitFor>>/$WORKSPACE/log/#$1_squishlog 
 var1=$(ps -aef |grep squishserver | grep -v grep | awk '{ print $2; }' |  head -1)
 kill -9 $var1
 var2=$(ps -aef |grep Xvfb | grep -v grep | awk '{ print $2; }' |  head -1)

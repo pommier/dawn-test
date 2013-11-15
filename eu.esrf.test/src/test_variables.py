@@ -6,7 +6,8 @@ queue = {'suite_workflows_general': {'tst_case':'tst_open_examples'}}
 #queue.update({'suite_usecases_general':{'tst_case':'tst_hdf5_large_tree'}}) 
 #queue.update({'suite_workflows_bignexus':{'tst_case':'tst_slicedata_dbrowsing'}}) 
 #queue['suite_workflows_bignexus'] = {'tst_case':'tst_slicedata_dexplore'} 
-       
+   
+    
 def check_variable(testSuiteName): 
     path_global_script=os.path.join(os.environ['WORKSPACE'],'org.dawnsci.squishtests',testSuiteName,'shared/scripts') 
     if os.path.exists(path_global_script)== True: 
@@ -20,6 +21,7 @@ def setup_log():
     os.mkdir(path_log) 
  
 setup_log() 
+#launch all the tests
 for testSuiteName in queue.keys(): 
     check_variable(testSuiteName) 
     for tst in queue[testSuiteName]: 
