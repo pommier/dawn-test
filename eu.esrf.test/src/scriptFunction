@@ -3,7 +3,10 @@ xvfbFound=false
 i=0
 x=0
 typeFile=".X*-lock" #pattern to only select Xvfb tmp file
+path=/tmp/.X*-lock
 findDisplayNumber(){
+if [ -f "$1/.X0-lock" ]; #if no display root
+then
 for inode in $(ls $1/$typeFile)
 	do
 		owner=$(ls -al $inode | grep -v grep |  awk '{ print $3; }')
@@ -24,7 +27,7 @@ if   ! $xvfbFound ; then #if no display found
 		if [ $x -ne ${array[$c]} ];then
 			var=$x			
 			xvfbFound=true
-			echo $var  #if no display is already created, this function will return a free number display
+			echo $var #if no display is already created, this function will return a free number display
 			break;
 		fi
 		let x++
@@ -36,4 +39,10 @@ if   ! $xvfbFound ;
 	echo $var
 	fi
 
+
+
+else
+var=0
+echo $var
+fi
 }

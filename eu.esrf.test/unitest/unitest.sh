@@ -18,7 +18,7 @@ function testWithTmp () {
 }
 
 #test the function findDisplayNumber with no temp file belonged to the user
-function testwithNoTmp () {
+function testwithNoTmpUser () {
 	mkdir 'tmpFile'
 	chmod -R 775 tmpFile
 	cd tmpFile
@@ -29,6 +29,26 @@ function testwithNoTmp () {
 	assertEquals '3' $val1
 }
 
+function testwithOneTmpbelongRoot () {
+	mkdir 'tmpFile'
+	chmod -R 775 tmpFile
+	cd tmpFile
+	cd ..
+	ssh opid29@ub1204 "touch $WORKSPACE/eu.esrf.test/unitest/tmpFile/.X0-lock"
+	val1=$(findDisplayNumber tmpFile/)
+	rm -rf tmpFile
+	assertEquals '1' $val1
+}
+
+function testwithEmptyFolder () {
+	mkdir 'tmpFile'
+	chmod -R 775 tmpFile
+	cd tmpFile
+	cd ..
+	val1=$(findDisplayNumber tmpFile/)
+	rm -rf tmpFile
+	assertEquals '0' $val1
+}
 
 
 . "$WORKSPACE/eu.esrf.test/src/shunit2-2.1.6/src/shunit2"
