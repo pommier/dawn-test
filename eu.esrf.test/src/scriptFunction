@@ -31,6 +31,7 @@ if  [ $xvfbFound=="false" ]; then #if no display found
 	done
 	if  [ $foundDisplay=="false" ]; then
 	var=$x
+	echo $var
 	fi	
 fi
 }
