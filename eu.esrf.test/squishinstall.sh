@@ -5,7 +5,7 @@ set -eux # error, unset and echo
 
 # Options
 export AUT_NAME=dawn
-export AUT_DIR=/sware/isdd/soft/dawn/beamline/linux_x64/dawn
+export AUT_DIR=/scisoft/jenkins/dawn/master_nightly/linux_x64/dawn/dawn
 echo "WORKSPACE", ${WORKSPACE:="./WORKSPACE"}
 echo "AUT_NAME=${AUT_NAME}"
 echo "DISPLAY", ${DISPLAY:=":0.0"}\
